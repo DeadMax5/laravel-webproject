@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return to_route('theme.index');
+        return to_route('stories.index');
     }
 
     /**

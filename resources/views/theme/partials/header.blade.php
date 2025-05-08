@@ -1,59 +1,67 @@
-    <!--================Header Menu Area =================-->
-    <header class="header_area">
-        <div class="main_menu">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container box_1620">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="{{ route('theme.index') }}"><img
-                            src="{{ asset('assets') }}/img/logo.png" alt=""></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav justify-content-center">
-                            <li class="nav-item @yield('home-active') "><a class="nav-link"
-                                    href="{{ route('theme.index') }}">Home</a>
-                            </li>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-                            <li class="nav-item  @yield('categories-active') submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Categories</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="{{ route('theme.category') }}">Food</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="{{ route('theme.category') }}">Bussiness</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="{{ route('theme.category') }}">Travel</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item @yield('contact-active')"><a class="nav-link"
-                                    href="{{ route('theme.contact') }}">Contact</a>
-                            </li>
-                        </ul>
+<header class="header_area bg-dark text-white" dir="rtl">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
 
-                        <!-- Add new blog -->
-                        <a href="#" class="btn btn-sm btn-primary mr-2">Add New</a>
-                        <!-- End - Add new blog -->
 
-                        <ul class="nav navbar-nav navbar-right navbar-social">
-                            <a href="{{ route('register') }}" class="btn btn-sm btn-warning">Register / Login</a>
-                            <!-- <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Welcome User</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="blog-details.html">My Blogs</a></li>
+            {{-- زر التنقل في الشاشات الصغيرة --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="تبديل القائمة">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @if (Auth::check())
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    +
+                </button>
+            @endif
+
+            <!-- Button trigger modal -->
+
+            {{-- عناصر القائمة --}}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                {{-- الروابط اليمنى (الرئيسية مثلاً) --}}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item @yield('home-active')">
+                        <a class="nav-link" href="{{ route('theme.index') }}">الرئيسية</a>
+                    </li>
                 </ul>
-              </li> -->
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+
+                {{-- الروابط اليسرى (حالة المستخدم) --}}
+                <ul class="navbar-nav ms-auto">
+                    @guest
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="btn btn-sm btn-warning">تسجيل / دخول</a>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end text-end" aria-labelledby="userDropdown">
+                                {{-- <li><a class="dropdown-item" href="#">لوحة التحكم</a></li> --}}
+                                <li>
+                                    <a class="dropdown-item" href="#"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        تسجيل الخروج
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {{-- فورم تسجيل الخروج --}}
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endguest
+                </ul>
+
+            </div>
         </div>
-    </header>
-    <!--================Header Menu Area =================-->
+    </nav>
+</header>

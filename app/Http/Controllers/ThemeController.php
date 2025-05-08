@@ -8,6 +8,7 @@ class ThemeController extends Controller
 {
     public function index()
     {
+        
         return view('theme.index');
     }
     public function category()
@@ -28,6 +29,6 @@ class ThemeController extends Controller
     }
     public function register()
     {
-        return view('theme.register');
+        return view('theme.register' );
     }
 }
